@@ -52,6 +52,8 @@ public class TupleTest {
 
         Tuple2<Integer, String> tp4 = Tuple2.of(5, null);
         assertNotEquals(tp3, tp4);
-
+        assertEquals(1116, tp4.hashCode());
+        assertEquals(4445, tp1.hashCode());
+        assertEquals(tp2.hashCode(), tp1.hashCode());
     }
 }

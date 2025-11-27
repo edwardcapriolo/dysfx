@@ -65,7 +65,7 @@ public class Success<T> implements Try<T> {
     @Override
     public Object productElement(int n) {
         if (n != 0) {
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException("Success has an arity of 1 not " + n);
         }
         return this.result;
     }

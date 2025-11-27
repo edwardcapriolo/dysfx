@@ -1,5 +1,7 @@
 package io.teknek.dysfx.multiple;
 
+import java.util.Arrays;
+
 public class Tuple2<T1,T2> extends Tuple1<T1> implements Product2<T1,T2>{
 
     public static <X1,X2> Tuple2<X1, X2> of(X1 left, X2 right){
@@ -24,4 +26,5 @@ public class Tuple2<T1,T2> extends Tuple1<T1> implements Product2<T1,T2>{
     public T2 right(){
         return getT2();
     }
+
 }
