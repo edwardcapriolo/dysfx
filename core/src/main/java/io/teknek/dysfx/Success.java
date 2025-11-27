@@ -1,10 +1,11 @@
 package io.teknek.dysfx;
 
+import java.util.Optional;
 import java.util.function.Function;
 
-public class Success<T> extends Try<T> {
+public class Success<T> implements Try<T> {
 
-    private final T result;
+    protected final T result;
 
     public Success(T t) {
         result = t;
@@ -27,7 +28,17 @@ public class Success<T> extends Try<T> {
 
     @Override
     public T get() {
-        return this.result;
+        return result;
+    }
+
+    @Override
+    public Maybe<T> toMaybe() {
+        return Maybe.possibly(result);
+    }
+
+    @Override
+    public Optional<T> toOption() {
+        return Optional.ofNullable(result);
     }
 
     @Override
@@ -58,6 +69,5 @@ public class Success<T> extends Try<T> {
         }
         return this.result;
     }
-
 
 }

@@ -2,10 +2,11 @@ package io.teknek.dysfx;
 
 import io.teknek.dysfx.exception.WrappedThrowable;
 
+import java.util.Optional;
 import java.util.function.Function;
 
-public class Failure<T> extends Try<T> {
-    private final Throwable thrown;
+public class Failure<T> implements Try<T> {
+    protected final Throwable thrown;
 
     public Failure(Throwable t) {
         this.thrown = t;
@@ -32,6 +33,16 @@ public class Failure<T> extends Try<T> {
     }
 
     @Override
+    public Maybe<T> toMaybe() {
+        return Maybe.nothing();
+    }
+
+    @Override
+    public Optional<T> toOption() {
+        return Optional.empty();
+    }
+
+    @Override
     public T sneakyGet() {
         ThrowControl.sneakyThrow(thrown);
         return null;
@@ -40,7 +51,7 @@ public class Failure<T> extends Try<T> {
     @Override
     public Object productElement(int n) {
         if (n != 0) {
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException("Failure has arity of 1 not " + n);
         }
         return this.thrown;
     }

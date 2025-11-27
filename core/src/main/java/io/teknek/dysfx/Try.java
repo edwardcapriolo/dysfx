@@ -3,13 +3,14 @@ package io.teknek.dysfx;
 import io.teknek.dysfx.exception.WrappedThrowable;
 import io.teknek.dysfx.multiple.Product1;
 
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public abstract class Try<T> implements Product1<T> {
-
-    public static <X> Try<X> of(Supplier<X> supplier, ThrowControl t){
+public interface Try<T> extends Product1<T> {
+    
+    static <X> Try<X> of(Supplier<X> supplier, ThrowControl t){
         try {
             return of(supplier);
         } catch (Throwable tr){
@@ -22,7 +23,7 @@ public abstract class Try<T> implements Product1<T> {
         }
     }
 
-    public static <X> Try<X> of(Supplier<X> supplier){
+    static <X> Try<X> of(Supplier<X> supplier){
         try {
             X x = supplier.get();
             return new Success<>(x);
@@ -31,7 +32,13 @@ public abstract class Try<T> implements Product1<T> {
         }
     }
 
-    public static <X> Try<X> ofCallable(Callable<X> callable){
+    /**
+     * To remain idiomatic with Callable which throws Exception. This Try will catch exception
+     * @param callable
+     * @return a try wrapping the callable
+     * @param <X> The type the try will return on success
+     */
+    static <X> Try<X> ofCallable(Callable<X> callable){
         try {
             X x = callable.call();
             return new Success<>(x);
@@ -40,18 +47,24 @@ public abstract class Try<T> implements Product1<T> {
         }
     }
 
-    public abstract boolean isSuccess();
-    public abstract T getOrElse(T t);
-    public abstract T orElse(Try<T> odElse);
-    public abstract T get() throws WrappedThrowable;
+    boolean isSuccess();
+    T getOrElse(T t);
+    T orElse(Try<T> odElse);
+    T get() throws WrappedThrowable;
 
-    public abstract <U> Try<U> map(Function<T, U> mapper);
+    Maybe<T> toMaybe();
+    /**
+     * Use toMaybe if the result can be null!
+     * @return Some if the result is Success or Not Null else Optional.empty()
+     */
+    Optional<T> toOption();
+    <U> Try<U> map(Function<T, U> mapper);
 
-    public abstract <U> Try<U> flatMap(Function<T, Try<U>> mapper);
+    <U> Try<U> flatMap(Function<T, Try<U>> mapper);
     /**
      * @throws Throwable if failure a Sneaky exception will be thrown
      * @return the value if results otherwise throw the exception in the failure
      */
 
-    public abstract T sneakyGet();
+    T sneakyGet();
 }
