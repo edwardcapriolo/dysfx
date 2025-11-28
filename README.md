@@ -15,3 +15,16 @@ void orElse(){
     assertEquals(3, notFour.getOrElse(3));
 }
 ```
+
+The beauty of Try is that you can use *match style* statements to handle cases
+
+```java
+void javaPatterns(){
+    Try<Integer> integerTry = Try.of(() -> 4 );
+    assertInstanceOf(Success.class, integerTry);
+    switch (integerTry) {
+        case Failure f -> fail("It should not fail " + f);
+        case Success<Integer> i -> assertEquals(4, i.get());
+    }
+}
+```
