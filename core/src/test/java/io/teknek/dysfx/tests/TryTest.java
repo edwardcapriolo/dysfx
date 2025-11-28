@@ -5,7 +5,6 @@ import io.teknek.dysfx.Success;
 import io.teknek.dysfx.ThrowControl;
 import io.teknek.dysfx.Try;
 import io.teknek.dysfx.exception.WrappedThrowable;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOError;
@@ -21,6 +20,7 @@ public class TryTest {
         assertEquals(4, integerTry.get());
     }
 
+    /* requires java21
     @Test
     void javaPatterns(){
         Try<Integer> integerTry = Try.of(() -> 4 );
@@ -30,7 +30,7 @@ public class TryTest {
             case Success<Integer> i -> assertEquals(4, i.get());
         }
     }
-
+    */
     @Test
     void orElse(){
         Try<Integer> notFour = Try.of(() -> Integer.parseInt("four"));

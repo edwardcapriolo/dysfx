@@ -94,7 +94,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <release>17</release>
-                    <jdkToolchain><version>17</version></jdkToolchain>
+		    <source>17</source>
+                    <jdkToolchain>
+			<version>17</version>
+		    </jdkToolchain>
                 </configuration>
             </plugin>
             <plugin>

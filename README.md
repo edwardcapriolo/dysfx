@@ -16,7 +16,9 @@ void orElse(){
 }
 ```
 
-The beauty of Try is that you can use *match style* statements to handle cases
+The beauty of Try is that you can use *match style* statements to handle cases.
+This switch of sealed types requires java 21 even though the sealed types are 
+supported in java17.
 
 ```java
 void javaPatterns(){
