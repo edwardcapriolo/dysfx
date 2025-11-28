@@ -66,5 +66,8 @@ public interface Try<T> extends Product1<T> {
      * @return the value if results otherwise throw the exception in the failure
      */
 
+    /** apply isSuccess if the try is success, isFailure of failed**/
+    <U> Try<U> transform(Function<T,Try<U>> ifSuccess,
+                         Function<Throwable, Try<U>> ifFailure);
     T sneakyGet();
 }

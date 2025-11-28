@@ -65,4 +65,13 @@ public class Failure<T> implements Try<T> {
     public <U> Try<U> flatMap(Function<T, Try<U>> mapper) {
         return new Failure<>(thrown);
     }
+
+    @Override
+    public <U> Try<U> transform(Function<T, Try<U>> ifSuccess, Function<Throwable, Try<U>> ifFailure) {
+        try {
+            return ifFailure.apply(thrown);
+        } catch (RuntimeException e){
+            return new Failure<>(e);
+        }
+    }
 }

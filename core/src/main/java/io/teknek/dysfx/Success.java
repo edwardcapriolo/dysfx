@@ -58,6 +58,15 @@ public class Success<T> implements Try<T> {
         }
     }
 
+    @Override
+    public <U> Try<U> transform(Function<T, Try<U>> ifSuccess, Function<Throwable, Try<U>> ifFailure) {
+        try {
+            return ifSuccess.apply(result);
+        } catch (RuntimeException e){
+            return new Failure<>(e);
+        }
+    }
+
     public T sneakyGet(){
         return this.result;
     }
