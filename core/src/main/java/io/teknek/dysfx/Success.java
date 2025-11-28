@@ -3,7 +3,7 @@ package io.teknek.dysfx;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class Success<T> implements Try<T> {
+public non-sealed class Success<T> implements Try<T> {
 
     protected final T result;
 

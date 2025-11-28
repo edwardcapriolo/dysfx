@@ -23,14 +23,11 @@ public class TryTest {
 
     @Test
     void javaPatterns(){
-
         Try<Integer> integerTry = Try.of(() -> 4 );
         assertInstanceOf(Success.class, integerTry);
         switch (integerTry) {
-            case Failure f -> fail("It should not fail");
+            case Failure f -> fail("It should not fail " + f);
             case Success<Integer> i -> assertEquals(4, i.get());
-
-            default -> throw new IllegalStateException("Unexpected value: " + integerTry);
         }
     }
 

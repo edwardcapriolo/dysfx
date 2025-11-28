@@ -8,7 +8,7 @@ import java.util.concurrent.Callable;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public interface Try<T> extends Product1<T> {
+public sealed interface Try<T> extends Product1<T> permits Success, Failure  {
     
     static <X> Try<X> of(Supplier<X> supplier, ThrowControl t){
         try {

@@ -5,7 +5,7 @@ import io.teknek.dysfx.exception.WrappedThrowable;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class Failure<T> implements Try<T> {
+public non-sealed class Failure<T> implements Try<T> {
     protected final Throwable thrown;
 
     public Failure(Throwable t) {
