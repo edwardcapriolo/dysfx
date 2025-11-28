@@ -22,6 +22,19 @@ public class TryTest {
     }
 
     @Test
+    void javaPatterns(){
+
+        Try<Integer> integerTry = Try.of(() -> 4 );
+        assertInstanceOf(Success.class, integerTry);
+        switch (integerTry) {
+            case Failure f -> fail("It should not fail");
+            case Success<Integer> i -> assertEquals(4, i.get());
+
+            default -> throw new IllegalStateException("Unexpected value: " + integerTry);
+        }
+    }
+
+    @Test
     void orElse(){
         Try<Integer> notFour = Try.of(() -> Integer.parseInt("four"));
         assertEquals(3, notFour.getOrElse(3));
@@ -38,7 +51,7 @@ public class TryTest {
     @Test
     void orElseTryThatThrows(){
         Try<Integer> notFour = Try.of(() -> Integer.parseInt("four"));
-        Throwable t = Assertions.assertThrows(WrappedThrowable.class, ()->
+        Throwable t = assertThrows(WrappedThrowable.class, ()->
         notFour.orElse(Try.of(()-> Integer.parseInt("five"))));
         assertInstanceOf(NumberFormatException.class, t.getCause());
     }
