@@ -3,6 +3,7 @@ package io.teknek.dysfx;
 import io.teknek.dysfx.exception.WrappedThrowable;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public non-sealed class Failure<T> implements Try<T> {
@@ -73,5 +74,10 @@ public non-sealed class Failure<T> implements Try<T> {
         } catch (RuntimeException e){
             return new Failure<>(e);
         }
+    }
+
+    @Override
+    public void forEach(Consumer<T> action) {
+        //failures do nothing with action
     }
 }

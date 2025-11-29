@@ -5,6 +5,7 @@ import io.teknek.dysfx.multiple.Product1;
 
 import java.util.Optional;
 import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -69,5 +70,9 @@ public sealed interface Try<T> extends Product1<T> permits Success, Failure  {
     /** apply isSuccess if the try is success, isFailure of failed**/
     <U> Try<U> transform(Function<T,Try<U>> ifSuccess,
                          Function<Throwable, Try<U>> ifFailure);
+
+    //def fold[U](fa: Throwable => U, fb: T => U): U
+    //<U> U fold(Function<Throwable, U> ifFailure, Function<T, U> ifSuccess);
+    void forEach(Consumer<T> action);
     T sneakyGet();
 }

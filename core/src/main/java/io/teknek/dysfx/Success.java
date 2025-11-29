@@ -1,6 +1,8 @@
 package io.teknek.dysfx;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public non-sealed class Success<T> implements Try<T> {
@@ -65,6 +67,11 @@ public non-sealed class Success<T> implements Try<T> {
         } catch (RuntimeException e){
             return new Failure<>(e);
         }
+    }
+
+    @Override
+    public void forEach(Consumer<T> action) {
+        action.accept(result);
     }
 
     public T sneakyGet(){
