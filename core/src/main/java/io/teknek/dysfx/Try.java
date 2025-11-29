@@ -3,13 +3,14 @@ package io.teknek.dysfx;
 import io.teknek.dysfx.exception.WrappedThrowable;
 import io.teknek.dysfx.multiple.Product1;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public sealed interface Try<T> extends Product1<T> permits Success, Failure  {
+public sealed interface Try<T> extends Product1<T>, Serializable permits Success, Failure  {
     
     static <X> Try<X> of(Supplier<X> supplier, ThrowControl t){
         try {
