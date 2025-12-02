@@ -15,7 +15,7 @@ public class TryForEachTest {
         Consumer<Object> cons = mock(Consumer.class);
         Try<Object> aTry = Try.of(() -> Integer.parseInt("30"));
         aTry.forEach(cons);
-        verify(cons, Mockito.times(1));
+        verify(cons, Mockito.times(1)).accept(Mockito.any());
     }
 
     @Test
@@ -23,6 +23,6 @@ public class TryForEachTest {
         Consumer<Object> cons = mock(Consumer.class);
         Try<Object> aTry = Try.of(() -> Integer.parseInt("thirty"));
         aTry.forEach(cons);
-        verify(cons, Mockito.never());
+        verify(cons, Mockito.never()).accept(Mockito.any());
     }
 }
