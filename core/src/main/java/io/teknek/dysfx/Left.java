@@ -1,6 +1,7 @@
 package io.teknek.dysfx;
 
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 public non-sealed class Left<L,R> implements Either<L,R> {
     private L left;
@@ -21,6 +22,11 @@ public non-sealed class Left<L,R> implements Either<L,R> {
     @Override
     public boolean contains(R r) {
         return false;
+    }
+
+    @Override
+    public void forEach(Consumer<R> action) {
+        //do nothing
     }
 
     @Override

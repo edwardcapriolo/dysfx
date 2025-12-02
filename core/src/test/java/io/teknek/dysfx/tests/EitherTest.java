@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.Supplier;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class EitherTest {
 
     @Test
@@ -22,9 +25,9 @@ public class EitherTest {
         } catch (NumberFormatException ex){
             example = Either.left(input);
         }
-        Assertions.assertTrue(example.isRight());
-        Assertions.assertTrue(example.contains(40));
-        Assertions.assertFalse(example.contains(41));
+        assertTrue(example.isRight());
+        assertTrue(example.contains(40));
+        assertFalse(example.contains(41));
     }
 
     @Test
@@ -32,16 +35,16 @@ public class EitherTest {
         String input = "40";
         Try<Either<String,Integer>> example = Try.of( ()-> new Right<>(Integer.parseInt(input)));
         var x = example.getOrElse(new Left<>(input));
-        Assertions.assertTrue(x.isRight());
-        Assertions.assertTrue(x.contains(40));
-        Assertions.assertFalse(x.contains(41));
+        assertTrue(x.isRight());
+        assertTrue(x.contains(40));
+        assertFalse(x.contains(41));
 
-        Either<String,Integer> y = Try.of( (Supplier<Either<String,Integer>>)
+        Either<String,Integer> eitherMonad = Try.of( (Supplier<Either<String,Integer>>)
                         () -> new Right<>(Integer.parseInt(input)))
                 .getOrElse(new Left<>(input));
-        Assertions.assertTrue(y.isRight());
-        Assertions.assertTrue(y.contains(40));
-        Assertions.assertFalse(y.contains(41));
+        assertTrue(eitherMonad.isRight());
+        assertTrue(eitherMonad.contains(40));
+        assertFalse(eitherMonad.contains(41));
     }
 
 }
