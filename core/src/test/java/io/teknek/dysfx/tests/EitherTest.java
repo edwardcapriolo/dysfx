@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.Supplier;
+import static io.teknek.dysfx.Either.*;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,8 +41,8 @@ public class EitherTest {
         assertFalse(x.contains(41));
 
         Either<String,Integer> eitherMonad = Try.of( (Supplier<Either<String,Integer>>)
-                        () -> new Right<>(Integer.parseInt(input)))
-                .getOrElse(new Left<>(input));
+                        () -> Right(Integer.parseInt(input)))
+                .getOrElse(Left(input));
         assertTrue(eitherMonad.isRight());
         assertTrue(eitherMonad.contains(40));
         assertFalse(eitherMonad.contains(41));
