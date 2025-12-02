@@ -1,5 +1,6 @@
 package io.teknek.dysfx;
 
+import io.teknek.dysfx.exception.UnreachableException;
 import io.teknek.dysfx.exception.WrappedThrowable;
 
 import java.util.Optional;
@@ -46,7 +47,12 @@ public non-sealed class Failure<T> implements Try<T> {
     @Override
     public T sneakyGet() {
         ThrowControl.sneakyThrow(thrown);
-        return null;
+        throw new UnreachableException("Sneaky get will always throw. This is unreachable.");
+    }
+
+    @Override
+    public Either<Throwable, T> toEither() {
+        return new Left<>(thrown);
     }
 
     @Override

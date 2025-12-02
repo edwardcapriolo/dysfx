@@ -2,7 +2,6 @@ package io.teknek.dysfx.tests;
 
 import io.teknek.dysfx.Left;
 import io.teknek.dysfx.Right;
-import io.teknek.dysfx.Try;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

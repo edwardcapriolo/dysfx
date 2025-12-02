@@ -79,6 +79,11 @@ public non-sealed class Success<T> implements Try<T> {
     }
 
     @Override
+    public Either<Throwable, T> toEither() {
+        return new Right<>(this.result);
+    }
+
+    @Override
     public Object productElement(int n) {
         if (n != 0) {
             throw new IllegalArgumentException("Success has an arity of 1 not " + n);

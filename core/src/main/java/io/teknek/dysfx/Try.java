@@ -76,4 +76,5 @@ public sealed interface Try<T> extends Product1<T>, Serializable permits Success
     //<U> U fold(Function<Throwable, U> ifFailure, Function<T, U> ifSuccess);
     void forEach(Consumer<T> action);
     T sneakyGet();
+    Either<Throwable,T> toEither();
 }
