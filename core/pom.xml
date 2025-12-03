@@ -11,6 +11,7 @@
     <build.plugins.plugin.version>3.5.3</build.plugins.plugin.version>
     <mockito.version>5.20.0</mockito.version>
     <metrics.version>4.2.37</metrics.version>
+    <res4j.version>2.3.0</res4j.version>
   </properties>
 
   <dependencies>
@@ -41,6 +42,12 @@
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.resilience4j</groupId>
+      <artifactId>resilience4j-retry</artifactId>
+      <version>${res4j.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

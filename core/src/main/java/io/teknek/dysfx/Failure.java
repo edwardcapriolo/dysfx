@@ -51,7 +51,7 @@ public non-sealed class Failure<T> implements Try<T> {
     }
 
     @Override
-    public Either<Throwable, T> toEither() {
+    public Either<Throwable, T> toEither(){
         return new Left<>(thrown);
     }
 

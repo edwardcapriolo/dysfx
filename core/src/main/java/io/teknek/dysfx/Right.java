@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.function.Consumer;
 
 public non-sealed class Right<L,R> implements Either<L, R>{
-    private R right;
+    private final R right;
     public Right(R right){
         this.right = right;
     }
