@@ -1,5 +1,6 @@
 package io.teknek.dysfx;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -90,4 +91,15 @@ public non-sealed class Success<T> implements Try<T> {
         return this.result;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Success<?> success = (Success<?>) o;
+        return Objects.equals(result, success.result);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(result);
+    }
 }
