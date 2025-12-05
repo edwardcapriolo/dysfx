@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public sealed interface Try<T> extends Product1<T>, Serializable permits Success, Failure  {
@@ -72,9 +73,16 @@ public sealed interface Try<T> extends Product1<T>, Serializable permits Success
     <U> Try<U> transform(Function<T,Try<U>> ifSuccess,
                          Function<Throwable, Try<U>> ifFailure);
 
+
     //def fold[U](fa: Throwable => U, fb: T => U): U
     //<U> U fold(Function<Throwable, U> ifFailure, Function<T, U> ifSuccess);
     void forEach(Consumer<T> action);
     T sneakyGet();
     Either<Throwable,T> toEither();
+
+    /**
+     *
+     * @return converts to a failure if the predicate is not satisfied
+     */
+    Try<T> filter(Predicate<T> predicate);
 }

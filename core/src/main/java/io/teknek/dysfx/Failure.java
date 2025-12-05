@@ -6,6 +6,7 @@ import io.teknek.dysfx.exception.WrappedThrowable;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public non-sealed class Failure<T> implements Try<T> {
     protected final Throwable thrown;
@@ -56,6 +57,11 @@ public non-sealed class Failure<T> implements Try<T> {
     }
 
     @Override
+    public Try<T> filter(Predicate<T> predicate) {
+        return this;
+    }
+
+    @Override
     public Object productElement(int n) {
         if (n != 0) {
             throw new IllegalArgumentException("Failure has arity of 1 not " + n);
@@ -85,5 +91,12 @@ public non-sealed class Failure<T> implements Try<T> {
     @Override
     public void forEach(Consumer<T> action) {
         //failures do nothing with action
+    }
+
+    @Override
+    public String toString() {
+        return "Failure{" +
+                "thrown=" + thrown +
+                '}';
     }
 }

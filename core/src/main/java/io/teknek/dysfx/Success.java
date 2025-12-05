@@ -1,9 +1,11 @@
 package io.teknek.dysfx;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public non-sealed class Success<T> implements Try<T> {
 
@@ -84,6 +86,12 @@ public non-sealed class Success<T> implements Try<T> {
     }
 
     @Override
+    public Try<T> filter(Predicate<T> predicate) {
+        return predicate.test(result) ? this
+                : new Failure<>(new NoSuchElementException("Predicate does not hold for " + result));
+    }
+
+    @Override
     public Object productElement(int n) {
         if (n != 0) {
             throw new IllegalArgumentException("Success has an arity of 1 not " + n);
@@ -101,5 +109,12 @@ public non-sealed class Success<T> implements Try<T> {
     @Override
     public int hashCode() {
         return Objects.hashCode(result);
+    }
+
+    @Override
+    public String toString() {
+        return "Success{" +
+                "result=" + result +
+                '}';
     }
 }

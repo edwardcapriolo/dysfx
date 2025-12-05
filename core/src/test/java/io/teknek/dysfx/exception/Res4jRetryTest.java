@@ -1,5 +1,6 @@
 package io.teknek.dysfx.exception;
 
+import io.github.resilience4j.core.functions.CheckedSupplier;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryConfig;
 import org.junit.jupiter.api.Test;
@@ -38,5 +39,16 @@ public class Res4jRetryTest {
         Retry retry = Retry.of("that", config);
         Supplier<Integer> z = retry.decorateSupplier(data);
         assertThrows(NumberFormatException.class, z::get);
+    }
+
+    @Test
+    void checkedSuppplie(){
+        CheckedSupplier<Integer> a = new CheckedSupplier<>(){
+
+            @Override
+            public Integer get() throws Throwable {
+                return null;
+            }
+        };
     }
 }
