@@ -27,9 +27,17 @@ public class TryEqualityTest {
         assertNotEquals(failure1, failure2);
         assertEquals(failure1, failure1);
     }
+    
+    @Test
+    void failureSuccess(){
+        assertNotEquals(four, failure1);
+    }
+
     @Test
     void hashCodes(){
         assertEquals(four.hashCode(), alsoFour.hashCode());
         assertEquals(four.hashCode(), alsoFour.hashCode());
     }
+
+
 }
