@@ -34,7 +34,7 @@ public class EitherTest {
     @Test
     void rightContainsTry(){
         String input = "40";
-        Try<Either<String,Integer>> example = Try.of( ()-> new Right<>(Integer.parseInt(input)));
+        Try<Either<String,Integer>> example = Try.of(()-> new Right<>(Integer.parseInt(input)));
         var x = example.getOrElse(new Left<>(input));
         assertTrue(x.isRight());
         assertTrue(x.contains(40));

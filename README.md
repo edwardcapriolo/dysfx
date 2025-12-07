@@ -30,3 +30,29 @@ void javaPatterns(){
     }
 }
 ```
+
+Either
+======
+Either allows the user to return one of type types. In this implementation
+the left side is the "error" and the right side is the "result". Unlike the Try
+the left does not not always an Exception. Take the case below:
+
+```java
+String input = "40";
+Try<Either<String,Integer>> example = Try.of(()-> new Right<>(Integer.parseInt(input)));
+var x = example.getOrElse(new Left<>(input));
+assertTrue(x.isRight());
+assertTrue(x.contains(40));
+assertFalse(x.contains(41));
+
+```
+In the failure case we are returned the actual input that caused the failure, maybe because it can
+be recovered.
+
+```java
+Either<String,Integer> eitherMonad = Try.of( (Supplier<Either<String,Integer>>)
+                () -> Right(Integer.parseInt(input)))
+        .getOrElse(Left(input));
+assertTrue(eitherMonad.isRight());
+assertTrue(eitherMonad.contains(40));
+```
