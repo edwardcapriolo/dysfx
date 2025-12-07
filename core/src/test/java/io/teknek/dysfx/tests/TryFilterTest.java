@@ -7,12 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static io.teknek.dysfx.Try.*;
 
 public class TryFilterTest {
 
     @Test
     void filterPass(){
-        assertEquals( new Success<>(4), Try.of(() -> 4).filter(x -> x == 4));
+        assertEquals(Success(4), Try.of(() -> 4).filter(x -> x == 4));
     }
 
     @Test

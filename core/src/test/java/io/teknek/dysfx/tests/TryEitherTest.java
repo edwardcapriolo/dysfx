@@ -5,8 +5,6 @@ import io.teknek.dysfx.Left;
 import io.teknek.dysfx.Try;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TryEitherTest {

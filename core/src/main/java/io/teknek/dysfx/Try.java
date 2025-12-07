@@ -12,7 +12,13 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public sealed interface Try<T> extends Product1<T>, Serializable permits Success, Failure  {
-    
+
+    static <U> Success<U> Success(U u){
+        return new Success<>(u);
+    }
+    static <T extends Throwable> Failure<T> Success(T t){
+        return new Failure<>(t);
+    }
     static <X> Try<X> of(Supplier<X> supplier, ThrowControl t){
         try {
             return of(supplier);
