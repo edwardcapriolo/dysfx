@@ -82,7 +82,7 @@ public non-sealed class Success<T> implements Try<T> {
 
     @Override
     public Either<Throwable, T> toEither() {
-        return new Right<>(this.result);
+        return new Right<>(result);
     }
 
     @Override
@@ -96,7 +96,7 @@ public non-sealed class Success<T> implements Try<T> {
         if (n != 0) {
             throw new IllegalArgumentException("Success has an arity of 1 not " + n);
         }
-        return this.result;
+        return result;
     }
 
     @Override

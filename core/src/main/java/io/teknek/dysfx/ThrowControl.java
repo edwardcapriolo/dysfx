@@ -16,4 +16,23 @@ public interface ThrowControl {
     default <E extends Throwable> void sneakyThrows(Throwable e) throws E {
         throw (E) e;
     }
+
+    static ThrowControl ofRuntime(){
+        return t -> {
+            if (t instanceof RuntimeException){
+                // eat
+            } else {
+                ThrowControl.sneakyThrow(t);
+            }
+        };
+    }
+    static ThrowControl ofStandardChecked(){
+        return t -> {
+            if (t instanceof Exception && !(t instanceof RuntimeException)){
+                //eat
+            } else {
+                ThrowControl.sneakyThrow(t);
+            }
+        };
+    }
 }

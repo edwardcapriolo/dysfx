@@ -31,6 +31,36 @@ void javaPatterns(){
 }
 ```
 
+ThrowControl
+======
+A challenge of the Try monad is dealing with CheckedExceptions. For example normally
+the user is told not to handle Error but there may be cases where the user wishes
+to handle this. For example, imagine a database that is intended to survive a disk failure by handling
+an Error. The constructor-like methods of Try, can customize
+which Throwable(s) the Try should convert to a Failure and which should be thrown.
+
+```java
+    CheckedSupplier<String> supplyThrowsRuntime = () -> {
+        throw new RuntimeException(); };
+
+    CheckedSupplier<String> supplyThrowsException = () -> {
+        throw new SQLException("the one"); };
+    CheckedSupplier<String> supplyThrowsError = () -> {
+        throw new Error("out of memory"); };
+
+    @Test
+    void modifyCheckedSupplierControl(){
+        assertThrows(SQLException.class, () ->
+                Try.ofCheckedSupplier(supplyThrowsException, ThrowControl.ofRuntime()));
+        assertInstanceOf(Failure.class,
+                Try.ofCheckedSupplier(supplyThrowsException, ThrowControl.ofStandardChecked()));
+        assertInstanceOf(Failure.class,
+                Try.ofCheckedSupplier(supplyThrowsRuntime, ThrowControl.ofRuntime()));
+        assertThrows(Error.class, () ->
+                Try.ofCheckedSupplier(supplyThrowsError, ThrowControl.ofStandardChecked()));
+    }
+```
+
 Either
 ======
 Either allows the user to return one of type types. In this implementation

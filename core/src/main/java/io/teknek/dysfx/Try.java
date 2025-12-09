@@ -16,17 +16,19 @@ public sealed interface Try<T> extends Product1<T>, Serializable permits Success
     static <U> Success<U> Success(U u){
         return new Success<>(u);
     }
-    static <T extends Throwable> Failure<T> Success(T t){
+
+    static <T extends Throwable> Failure<T> Failure(T t){
         return new Failure<>(t);
     }
-    static <X> Try<X> of(Supplier<X> supplier, ThrowControl t){
+
+    static <X> Try<X> of(Supplier<X> supplier, ThrowControl throwControl){
         try {
             return of(supplier);
         } catch (Throwable tr){
             try {
-                t.handle(tr);
+                throwControl.handle(tr);
             } catch (Throwable reallyThrow){
-                t.sneakyThrows(tr);
+                throwControl.sneakyThrows(tr);
             }
             return new Failure<>(tr);
         }
@@ -56,6 +58,44 @@ public sealed interface Try<T> extends Product1<T>, Serializable permits Success
         }
     }
 
+    static <X> Try<X> ofCallable(Callable<X> callable, ThrowControl throwControl){
+        try {
+            X x = callable.call();
+            return new Success<>(x);
+        } catch (Throwable tr){
+            try {
+                throwControl.handle(tr);
+            } catch (Throwable reallyThrow){
+                throwControl.sneakyThrows(tr);
+            }
+            return new Failure<>(tr);
+        }
+    }
+
+    static <X> Try<X> ofCheckedSupplier(CheckedSupplier<X> checked){
+        try {
+            X x = checked.get();
+            return new Success<>(x);
+        } catch (Throwable t){
+            return new Failure<>(t);
+        }
+    }
+
+    static <X> Try<X> ofCheckedSupplier(CheckedSupplier<X> checked, ThrowControl throwControl){
+        try {
+            X x = checked.get();
+            return new Success<>(x);
+        } catch (Throwable tr){
+            try {
+                throwControl.handle(tr);
+            } catch (Throwable reallyThrow){
+                throwControl.sneakyThrows(tr);
+            }
+            return new Failure<>(tr);
+        }
+    }
+
+
     boolean isSuccess();
     T getOrElse(T t);
     T orElse(Try<T> odElse);
@@ -70,10 +110,6 @@ public sealed interface Try<T> extends Product1<T>, Serializable permits Success
     <U> Try<U> map(Function<T, U> mapper);
 
     <U> Try<U> flatMap(Function<T, Try<U>> mapper);
-    /**
-     * @throws Throwable if failure a Sneaky exception will be thrown
-     * @return the value if results otherwise throw the exception in the failure
-     */
 
     /** apply isSuccess if the try is success, isFailure of failed**/
     <U> Try<U> transform(Function<T,Try<U>> ifSuccess,
