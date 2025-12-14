@@ -17,8 +17,10 @@ public class Null<T> implements Maybe<T>, Product1<T> {
 
     /** usually null != null but in the scope of placing a null value in a collection in needs a true equality.*/
     @Override
-    public boolean equals(Object obj) {
-        return this == INSTANCE;
+    public boolean equals(Object other) {
+        if (other == INSTANCE){
+            return true;
+        } return false;
     }
 
     @Override
