@@ -1,5 +1,6 @@
 package io.teknek.dysfx;
 
+import javax.annotation.Nonnull;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
@@ -26,7 +27,7 @@ public non-sealed class Right<L,R> implements Either<L, R>{
     }
 
     @Override
-    public void forEach(Consumer<R> action) {
+    public void forEach(@Nonnull Consumer<R> action) {
         action.accept(right);
     }
 

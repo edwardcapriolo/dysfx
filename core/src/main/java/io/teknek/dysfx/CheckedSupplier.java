@@ -1,6 +1,8 @@
 package io.teknek.dysfx;
 
+import javax.annotation.Nullable;
+
 @FunctionalInterface
 public interface CheckedSupplier<T>  {
-    T get() throws Throwable;
+    @Nullable T get() throws Throwable;
 }
