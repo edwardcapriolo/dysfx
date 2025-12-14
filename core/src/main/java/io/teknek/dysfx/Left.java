@@ -3,6 +3,7 @@ package io.teknek.dysfx;
 import javax.annotation.Nonnull;
 import java.util.Iterator;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public non-sealed class Left<L,R> implements Either<L,R> {
     private L left;
@@ -28,6 +29,11 @@ public non-sealed class Left<L,R> implements Either<L,R> {
     @Override
     public void forEach(@Nonnull Consumer<R> action) {
         //do nothing
+    }
+
+    @Override
+    public boolean exists(@Nonnull Predicate<R> predicate) {
+        return false;
     }
 
     @Override

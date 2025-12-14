@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.function.Supplier;
 import static io.teknek.dysfx.Either.*;
 
@@ -48,4 +49,10 @@ public class EitherTest {
         assertFalse(eitherMonad.contains(41));
     }
 
+    @Test
+    void exists(){
+        assertTrue(Right(40).exists((p) -> p == 40));
+        assertFalse(Right(40).exists((p) -> p == 41));
+        assertFalse(Left(new RuntimeException("")).exists(Objects::isNull));
+    }
 }

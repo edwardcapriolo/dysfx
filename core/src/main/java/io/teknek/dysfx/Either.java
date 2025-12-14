@@ -2,6 +2,7 @@ package io.teknek.dysfx;
 
 import java.io.Serializable;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import io.teknek.dysfx.multiple.Product1;
 
@@ -33,5 +34,6 @@ public sealed interface Either<L, R> extends Product1, Serializable permits Left
      * @param action execute side effect only if a Right
      */
     void forEach(@Nonnull Consumer<R> action);
+    boolean exists(@Nonnull Predicate<R> predicate);
 }
 
