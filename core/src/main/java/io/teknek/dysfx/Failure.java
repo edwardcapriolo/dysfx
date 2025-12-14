@@ -3,6 +3,7 @@ package io.teknek.dysfx;
 import io.teknek.dysfx.exception.UnreachableException;
 import io.teknek.dysfx.exception.WrappedThrowable;
 
+import javax.annotation.Nonnull;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -26,7 +27,7 @@ public non-sealed class Failure<T> implements Try<T> {
     }
 
     @Override
-    public T orElse(Try<T> odElse) {
+    public T orElse(@Nonnull Try<T> odElse) {
         return odElse.get();
     }
 
@@ -35,11 +36,13 @@ public non-sealed class Failure<T> implements Try<T> {
         throw new WrappedThrowable(thrown);
     }
 
+    @Nonnull
     @Override
     public Maybe<T> toMaybe() {
         return Maybe.nothing();
     }
 
+    @Nonnull
     @Override
     public Optional<T> toOption() {
         return Optional.empty();
@@ -51,13 +54,15 @@ public non-sealed class Failure<T> implements Try<T> {
         throw new UnreachableException("Sneaky get will always throw. This is unreachable.");
     }
 
+    @Nonnull
     @Override
     public Either<Throwable, T> toEither(){
         return new Left<>(thrown);
     }
 
+    @Nonnull
     @Override
-    public Try<T> filter(Predicate<T> predicate) {
+    public Try<T> filter(@Nonnull Predicate<T> predicate) {
         return this;
     }
 
@@ -69,18 +74,21 @@ public non-sealed class Failure<T> implements Try<T> {
         return this.thrown;
     }
 
+    @Nonnull
     @Override
-    public <U> Try<U> map(Function<T, U> mapper) {
+    public <U> Try<U> map(@Nonnull Function<T, U> mapper) {
         return new Failure<>(thrown);
     }
 
+    @Nonnull
     @Override
-    public <U> Try<U> flatMap(Function<T, Try<U>> mapper) {
+    public <U> Try<U> flatMap(@Nonnull Function<T, Try<U>> mapper) {
         return new Failure<>(thrown);
     }
 
+    @Nonnull
     @Override
-    public <U> Try<U> transform(Function<T, Try<U>> ifSuccess, Function<Throwable, Try<U>> ifFailure) {
+    public <U> Try<U> transform(@Nonnull Function<T, Try<U>> ifSuccess, @Nonnull Function<Throwable, Try<U>> ifFailure) {
         try {
             return ifFailure.apply(thrown);
         } catch (RuntimeException e){
@@ -89,7 +97,7 @@ public non-sealed class Failure<T> implements Try<T> {
     }
 
     @Override
-    public void forEach(Consumer<T> action) {
+    public void forEach(@Nonnull Consumer<T> action) {
         //failures do nothing with action
     }
 

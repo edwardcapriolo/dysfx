@@ -12,6 +12,7 @@
     <mockito.version>5.20.0</mockito.version>
     <metrics.version>4.2.37</metrics.version>
     <res4j.version>2.3.0</res4j.version>
+    <spotbugsannotation.version>4.9.8</spotbugsannotation.version>
   </properties>
 
   <dependencies>
@@ -49,6 +50,11 @@
       <artifactId>resilience4j-retry</artifactId>
       <version>${res4j.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-annotations</artifactId>
+      <version>${spotbugsannotation.version}</version>
     </dependency>
   </dependencies>
 

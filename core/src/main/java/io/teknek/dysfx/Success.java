@@ -1,5 +1,7 @@
 package io.teknek.dysfx;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
@@ -9,9 +11,10 @@ import java.util.function.Predicate;
 
 public non-sealed class Success<T> implements Try<T> {
 
+    @Nullable
     protected final T result;
 
-    public Success(T t) {
+    public Success(@Nullable T t) {
         result = t;
     }
 
@@ -21,32 +24,33 @@ public non-sealed class Success<T> implements Try<T> {
     }
 
     @Override
-    public T getOrElse(T t) {
-        return this.result;
-    }
-
-    @Override
-    public T orElse(Try<T> odElse) {
+    public @Nullable T getOrElse(@Nullable T t) {
         return result;
     }
 
     @Override
-    public T get() {
+    public @Nullable T orElse(@Nonnull Try<T> orElse) {
         return result;
     }
 
     @Override
-    public Maybe<T> toMaybe() {
+    public @Nullable T get() {
+        return result;
+    }
+
+    @Override
+    public @Nonnull Maybe<T> toMaybe() {
         return Maybe.possibly(result);
     }
 
     @Override
-    public Optional<T> toOption() {
+    public @Nonnull Optional<T> toOption() {
         return Optional.ofNullable(result);
     }
 
     @Override
-    public <U> Try<U> map(Function<T, U> mapper) {
+    public <U> @Nonnull Try<U> map(@Nonnull Function<T, U> mapper) {
+        Objects.requireNonNull(mapper, "Mapper can not be null");
         try {
             return new Success<>(mapper.apply(result));
         } catch (RuntimeException e) {
@@ -54,7 +58,8 @@ public non-sealed class Success<T> implements Try<T> {
         }
     }
 
-    public <U> Try<U> flatMap(Function<T, Try<U>> mapper) {
+    public <U> @Nonnull Try<U> flatMap(@Nonnull Function<T, Try<U>> mapper) {
+        Objects.requireNonNull(mapper, "Mapper can not be null");
         try {
             return mapper.apply(result);
         } catch (RuntimeException e) {
@@ -63,7 +68,8 @@ public non-sealed class Success<T> implements Try<T> {
     }
 
     @Override
-    public <U> Try<U> transform(Function<T, Try<U>> ifSuccess, Function<Throwable, Try<U>> ifFailure) {
+    public <U> @Nonnull Try<U> transform(@Nonnull Function<T, Try<U>> ifSuccess,
+                                         @Nonnull Function<Throwable, Try<U>> ifFailure) {
         try {
             return ifSuccess.apply(result);
         } catch (RuntimeException e){
@@ -72,27 +78,30 @@ public non-sealed class Success<T> implements Try<T> {
     }
 
     @Override
-    public void forEach(Consumer<T> action) {
+    public void forEach(@Nonnull Consumer<T> action) {
+        Objects.requireNonNull(action, "Mapper can not be null");
         action.accept(result);
     }
 
-    public T sneakyGet(){
-        return this.result;
+    public @Nullable T sneakyGet(){
+        return result;
     }
 
     @Override
-    public Either<Throwable, T> toEither() {
+    public @Nonnull Either<Throwable, T> toEither() {
         return new Right<>(result);
     }
 
+    @Nonnull
     @Override
-    public Try<T> filter(Predicate<T> predicate) {
+    public Try<T> filter(@Nonnull  Predicate<T> predicate) {
+        Objects.requireNonNull(predicate, "Predicate can not be null");
         return predicate.test(result) ? this
                 : new Failure<>(new NoSuchElementException("Predicate does not hold for " + result));
     }
 
     @Override
-    public Object productElement(int n) {
+    public @Nullable Object productElement(int n) {
         if (n != 0) {
             throw new IllegalArgumentException("Success has an arity of 1 not " + n);
         }

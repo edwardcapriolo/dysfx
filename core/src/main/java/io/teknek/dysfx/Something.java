@@ -2,6 +2,7 @@ package io.teknek.dysfx;
 
 import io.teknek.dysfx.multiple.Product1;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Objects;
@@ -9,11 +10,11 @@ import java.util.Objects;
 public class Something<T> implements Maybe<T>, Product1<T> {
     protected final T something;
 
-    public Something(T t){
+    public Something(@Nonnull T t){
         this.something = t;
     }
 
-    public T get() {
+    public @Nonnull T get() {
         return something;
     }
 

@@ -1,8 +1,8 @@
 package io.teknek.dysfx;
 
-import io.teknek.dysfx.multiple.Product0;
 import io.teknek.dysfx.multiple.Product1;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -35,7 +35,7 @@ public class Null<T> implements Maybe<T>, Product1<T> {
     }
 
     @Override
-    public Iterator<Object> productIterator() {
+    public @Nonnull Iterator<Object> productIterator() {
         return Collections.<Object>singletonList(INSTANCE).iterator();
     }
 }
