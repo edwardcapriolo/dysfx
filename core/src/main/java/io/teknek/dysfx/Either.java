@@ -35,5 +35,7 @@ public sealed interface Either<L, R> extends Product1, Serializable permits Left
      */
     void forEach(@Nonnull Consumer<R> action);
     boolean exists(@Nonnull Predicate<R> predicate);
+
+
 }
 
