@@ -36,6 +36,10 @@ public sealed interface Either<L, R> extends Product1, Serializable permits Left
     void forEach(@Nonnull Consumer<R> action);
     boolean exists(@Nonnull Predicate<R> predicate);
 
-
+    /**
+     * If this is a Left, then return the left value in Right or vice versa.
+     *
+     */
+    Either<R,L> swap();
 }
 

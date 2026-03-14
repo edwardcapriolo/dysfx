@@ -40,6 +40,11 @@ public non-sealed class Right<L,R> implements Either<L, R>{
     }
 
     @Override
+    public Either<R, L> swap() {
+        return new Left<>(this.right);
+    }
+
+    @Override
     public R productElement(int n) {
         if (n == 0){
             return right;
@@ -48,7 +53,7 @@ public non-sealed class Right<L,R> implements Either<L, R>{
     }
 
     @Override
-    public Iterator<Object> productIterator() {
+    public Iterator<R> productIterator() {
         return Either.super.productIterator();
     }
 }

@@ -17,8 +17,9 @@ public class Tuple1<T1> implements Product1<T1> {
     }
 
     @Override
-    public Object productElement(int n) {
-        return data[n];
+    @SuppressWarnings("unchecked")
+    public T1 productElement(int n) {
+        return (T1) data[n];
     }
 
     @SuppressWarnings("unchecked")

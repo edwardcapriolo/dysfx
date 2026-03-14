@@ -10,6 +10,7 @@ public class Tuple3<T1, T2, T3> extends Tuple2<T1,T2> implements Product3<T1, T2
         data = new Object[] { t1, t2, t3 };
     }
 
+    @SuppressWarnings("unchecked")
     public T3 getT3(){
         return (T3) data[2];
     }
