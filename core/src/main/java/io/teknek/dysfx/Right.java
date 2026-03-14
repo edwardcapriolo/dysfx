@@ -40,7 +40,7 @@ public non-sealed class Right<L,R> implements Either<L, R>{
     }
 
     @Override
-    public Object productElement(int n) {
+    public R productElement(int n) {
         if (n == 0){
             return right;
         }

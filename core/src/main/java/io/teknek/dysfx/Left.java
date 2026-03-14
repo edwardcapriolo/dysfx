@@ -37,7 +37,7 @@ public non-sealed class Left<L,R> implements Either<L,R> {
     }
 
     @Override
-    public Object productElement(int n) {
+    public L productElement(int n) {
         if (n == 0){
             return left;
         }
