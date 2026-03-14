@@ -2,11 +2,11 @@ package io.teknek.dysfx.multiple;
 
 import java.util.Iterator;
 
-public interface Product {
+public interface Product<T> {
     int productArity();
-    Object productElement(int n);
+    T productElement(int n);
 
-    default Iterator<Object> productIterator(){
+    default Iterator<T> productIterator(){
         final int[] current = {0};
         return new Iterator<>() {
             @Override
@@ -15,7 +15,7 @@ public interface Product {
             }
 
             @Override
-            public Object next() {
+            public T next() {
                 return productElement(current[0]++);
             }
         };

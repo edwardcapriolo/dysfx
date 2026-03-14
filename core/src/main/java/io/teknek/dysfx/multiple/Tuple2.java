@@ -15,6 +15,7 @@ public class Tuple2<T1,T2> extends Tuple1<T1> implements Product2<T1,T2>{
         super.data[1] = t2;
     }
 
+    @SuppressWarnings("unchecked")
     public T2 getT2(){
         return (T2) data[1];
     }
