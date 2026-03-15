@@ -24,7 +24,12 @@ public non-sealed class Right<L,R> implements Either<L, R>{
 
     @Override
     public boolean contains(R r) {
-        if (right == null) { return false;}
+        if (right == null && r == null) {
+            return true;
+        }
+        if (right == null) {
+            return false;
+        }
         return right.equals(r);
     }
 
@@ -42,6 +47,11 @@ public non-sealed class Right<L,R> implements Either<L, R>{
     @Override
     public Either<R, L> swap() {
         return new Left<>(this.right);
+    }
+
+    @Override
+    public R get() {
+        return right;
     }
 
     @Override

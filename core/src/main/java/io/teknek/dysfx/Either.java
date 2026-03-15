@@ -27,6 +27,7 @@ public sealed interface Either<L, R> extends Product1, Serializable permits Left
     }
     boolean isLeft();
     boolean isRight();
+
     boolean contains(@Nullable R r);
 
     /**
@@ -41,5 +42,8 @@ public sealed interface Either<L, R> extends Product1, Serializable permits Left
      *
      */
     Either<R,L> swap();
+
+    /* if Left the value of the left if right the value of the right */
+    Object get();
 }
 

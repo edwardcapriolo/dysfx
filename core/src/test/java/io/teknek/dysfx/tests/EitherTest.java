@@ -12,9 +12,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.function.Supplier;
 import static io.teknek.dysfx.Either.*;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EitherTest {
 
@@ -32,6 +30,12 @@ public class EitherTest {
         assertFalse(example.contains(41));
     }
 
+    @Test
+    void nullValueInsideRight(){
+        Either<String,Integer> example = Either.right(null);
+        assertTrue(example.contains(null));
+    }
+    
     @Test
     void rightContainsTry(){
         String input = "40";

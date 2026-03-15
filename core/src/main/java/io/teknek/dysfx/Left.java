@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public non-sealed class Left<L,R> implements Either<L,R> {
-    private L left;
+    private final L left;
     public Left(L left){
         this.left = left;
     }
@@ -39,6 +39,11 @@ public non-sealed class Left<L,R> implements Either<L,R> {
     @Override
     public Either<R, L> swap() {
         return new Right<>(this.left);
+    }
+
+    @Override
+    public L get() {
+        return left;
     }
 
     @Override
