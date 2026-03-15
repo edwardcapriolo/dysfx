@@ -32,10 +32,13 @@ public class EitherTest {
 
     @Test
     void nullValueInsideRight(){
-        Either<String,Integer> example = Either.right(null);
+        Right<String,Integer> example = Either.right(null);
         assertTrue(example.contains(null));
+        Right<String,Integer> r = example;
+        Integer i = r.get();
+        assertNull(i);
     }
-    
+
     @Test
     void rightContainsTry(){
         String input = "40";
