@@ -34,7 +34,7 @@
 
     <modules>
         <module>core</module>
-        <module>liftnship</module>
+        <!--<module>liftnship</module>-->
     </modules>
     <build>
         <extensions>
